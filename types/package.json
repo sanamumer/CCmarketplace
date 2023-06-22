@@ -1,7 +1,7 @@
 {
-  "name": "@stargazezone/marketplace-types",
+  "name": "marketplace-types",
   "version": "1.0.0",
-  "description": "Types for Stargaze Marketplace",
+  "description": "Types for Marketplace",
   "main": "build/codegen.js",
   "scripts": {
     "prepare": "tsc",
@@ -10,7 +10,7 @@
     "publish": "npm run build && npm run codegen && npm publish --access public"
   },
   "keywords": [],
-  "author": "Shane Vitarana",
+  "author": "",
   "license": "BUSL-1.1",
   "husky": {
     "hooks": {
