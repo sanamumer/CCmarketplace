@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExecuteMsg",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "enroll_remote_contract"
+      ],
+      "properties": {
+        "enroll_remote_contract": {
+          "type": "object",
+          "required": [
+            "chain_id",
+            "remote_address"
+          ],
+          "properties": {
+            "chain_id": {
+              "type": "string"
+            },
+            "remote_address": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "transfer_cross_chain"
+      ],
+      "properties": {
+        "transfer_cross_chain": {
+          "type": "object",
+          "required": [
+            "dst_chain_id",
+            "recipient",
+            "request_metadata",
+            "token_id"
+          ],
+          "properties": {
+            "dst_chain_id": {
+              "type": "string"
+            },
+            "recipient": {
+              "type": "string"
+            },
+            "request_metadata": {
+              "$ref": "#/definitions/RequestMetaData"
+            },
+            "token_id": {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "definitions": {
+    "AckType": {
+      "type": "string",
+      "enum": [
+        "NoAck",
+        "AckOnSuccess",
+        "AckOnError",
+        "AckOnBoth"
+      ]
+    },
+    "RequestMetaData": {
+      "type": "object",
+      "required": [
+        "ack_gas_limit",
+        "ack_gas_price",
+        "ack_type",
+        "asm_address",
+        "dest_gas_limit",
+        "dest_gas_price",
+        "is_read_call",
+        "relayer_fee"
+      ],
+      "properties": {
+        "ack_gas_limit": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "ack_gas_price": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "ack_type": {
+          "$ref": "#/definitions/AckType"
+        },
+        "asm_address": {
+          "type": "string"
+        },
+        "dest_gas_limit": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "dest_gas_price": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "is_read_call": {
+          "type": "boolean"
+        },
+        "relayer_fee": {
+          "$ref": "#/definitions/Uint128"
+        }
+      }
+    },
+    "Uint128": {
+      "description": "A thin wrapper around u128 that is using strings for JSON encoding/decoding, such that the full u128 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq.\n\n# Examples\n\nUse `from` to create instances of this and `u128` to get the value out:\n\n``` # use cosmwasm_std::Uint128; let a = Uint128::from(123u128); assert_eq!(a.u128(), 123);\n\nlet b = Uint128::from(42u64); assert_eq!(b.u128(), 42);\n\nlet c = Uint128::from(70u32); assert_eq!(c.u128(), 70); ```",
+      "type": "string"
+    }
+  }
+}
