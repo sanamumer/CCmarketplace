@@ -1,6 +1,6 @@
 [package]
 name        = "sg-marketplace-common"
-authors     = ["Shane Vitarana <s@noreply.publicawesome.com>"]
+authors     = [""]
 description = "Common controllers for use in Marketplace contracts"
 version     = { workspace = true }
 edition     = { workspace = true }
