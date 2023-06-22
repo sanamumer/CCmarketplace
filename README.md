@@ -1,7 +1,30 @@
 # Marketplace Smart Contract
 
-Sample Crosschain marketplace integrating router protocol crosstalk for crosschain functionality.
-A cross-chain NFT marketplace is a platform that allows users to buy and sell NFTs across different blockchain networks. This technology removes the limitations of having to use a single blockchain network, and allows users to trade NFTs on the network that offers the best price or features.
+The NFT auction happens as a perpetual auction. Asks and bids have time limits set by governance.
 
-The marketplace uses Router Crosstalk to facilitate cross-chain transactions. Router Crosstalk is a cross-chain communication protocol that allows contracts on different blockchain networks to communicate with each other. This allows the marketplace to transfer NFTs between different blockchain networks, making it possible for users to buy and sell NFTs on the network that offers the best price or features.
+Anyone can call the SetBid method and make an offer on any listed NFT. The funds are sent to the marketplace contract which serves as an escrow.
 
+Bidders can remove their bids and reclaim their funds with RemoveBid. When a bid is removed, its deposit is refunded. New bids automatically remove and refund previous bids.
+
+The NFT owner can at any point pick a bid they like and call the AcceptBid method, which will transfer both the funds and the NFT.
+
+Optionally, the NFT owner can set an ask price with the SetAsk method. If an ask is set, any bid that meets the ask requirements is automatically accepted and transferred to the bidder. The owner can remove the ask with RemoveAsk.
+
+When a bid is accepted, both the payment and NFT are automatically transferred. Payment is split up and distributed according to royalties specified when the NFT was minted.
+
+Authorizing Marketplace
+In order to accept a bid or set an asking price, the owner needs to grant approval to the marketplace contract for transferring the NFT. This can be done with an NFT's Approve method for each NFT, or by using ApproveAll for all NFTs in the collection.
+
+Running this Contract
+You will need Rust 1.44.1+ with wasm32-unknown-unknown target installed.
+
+You can run unit tests on this via:
+
+cargo test
+
+Once you are happy with the content, you can compile it to wasm via:
+
+RUSTFLAGS='-C link-arg=-s' cargo wasm
+cp ../../target/wasm32-unknown-unknown/release/sg_marketplace.wasm .
+ls -l sg_marketplace.wasm
+sha256sum sg_marketplace.wasm
