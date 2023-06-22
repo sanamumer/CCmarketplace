@@ -4,9 +4,6 @@ resolver = "2"
 
 [workspace.package]
 version    = "2.0.0"
-edition    = "2021"
-homepage   = "https://stargaze.zone"
-repository = "https://github.com/public-awesome/marketplace"
 license    = "BUSL-1.1"
 
 [workspace.dependencies]
